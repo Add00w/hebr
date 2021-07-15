@@ -1,0 +1,23 @@
+{
+  "app_title": "حبر",
+  "change_locale": "غير اللغة",
+  "share_your_ideas_with_world": "شارك أفكارك مع العالم",
+  "login": "تسجيل الدخول",
+  "user_name": "اسم المستخدم",
+  "password": "كلمة المرور",
+  "remember": "تذكرني",
+  "forget_password": "نسيت كلمة المرور؟",
+  "continue_to": "متابعة",
+  "do_not_have_account": "ليس لديك حساب؟",
+  "join_now": "انضم الان",
+  "password_is_short": "كلمة المرور قصيرة جدا",
+  "username_is_short": " اسم المستخدم  قصير جدا",
+  "confirm_password": "تاكيد كلمة المرور",
+  "email": "بريدالالكتروني",
+  "join_us": "انضم لنا",
+  "join_share_your_ideas_with_us": "انضم وابدا بمشاركة كتاباتك وافكارك معنا ",
+  "agree_policy": "اوافق على سياسة الاستخدام والخصوصية",
+  "confirm_password_must_equal_to_password": "تاكيد كلمة السر يجب ان تساوي كلمة السر",
+  "invalidEmail": "بريدالالكتروني غير صحيح",
+  "home": "الريسية"
+}

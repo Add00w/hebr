@@ -1,0 +1,23 @@
+{
+  "app_title": "Hebr",
+  "change_locale": "Change language",
+  "share_your_ideas_with_world": "Share your ideas with world",
+  "login": "Login",
+  "user_name": "Username",
+  "password": "Password",
+  "remember": "Remember me",
+  "forget_password": "Forget password?",
+  "continue_to": "Continue",
+  "do_not_have_account": "Don't have an account? ",
+  "join_now": "Join now",
+  "password_is_short": "Password is too short",
+  "username_is_short": "Username is too short",
+  "confirm_password": "Confirm the password",
+  "email": "Email",
+  "join_us": "Join us",
+  "join_share_your_ideas_with_us": "Join and start sharing your ideas with us",
+  "agree_policy": "I agree privacy and usage policy",
+  "confirm_password_must_equal_to_password": "Confirm password must equal to password",
+  "invalidEmail": "Invalid email",
+  "home": "Home"
+}
