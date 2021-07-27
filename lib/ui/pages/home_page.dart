@@ -1,47 +1,95 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
-
-import 'package:hebr/generated/locale_keys.g.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
     Key? key,
   }) : super(key: key);
-
+  static const _followingTopics = [
+    'Programming',
+    'Science',
+    'Data science',
+    'Machine learning'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        leadingWidth: 100,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Text(LocaleKeys.home.tr()),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.notifications_none,
-              ))
-        ],
-      ),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 5,
-              itemBuilder: (context, index) => ArticleWidget(),
-            ),
-          ],
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15, right: 15, top: 5, bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Following',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    Badge(
+                      badgeColor: Colors.green,
+                      position: BadgePosition.topEnd(top: 0, end: 0),
+                      showBadge: false,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primaryVariant),
+                            shape: BoxShape.circle),
+                        padding: EdgeInsets.all(5),
+                        child: Icon(
+                          Icons.notifications_none,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 30,
+                child: ListView.builder(
+                  itemCount: _followingTopics.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 5),
+                      child: Chip(
+                        label: Text(
+                          _followingTopics[index],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 10),
+              myDivider(),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Text('TOP STORIES',
+                    style: Theme.of(context).textTheme.headline6),
+              ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => ArticleWidget(),
+                separatorBuilder: (context, index) => myDivider(),
+                itemCount: 5,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  Divider myDivider() => Divider(thickness: 1);
 }
 
 class ArticleWidget extends StatelessWidget {
@@ -54,7 +102,6 @@ class ArticleWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(vertical: 2),
-      color: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
           Row(
@@ -65,17 +112,44 @@ class ArticleWidget extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.person,
+                        SizedBox(
+                          height: 15,
+                          width: 15,
+                          child: Image.asset('assets/images/new_azure_a.png'),
                         ),
                         SizedBox(width: 10),
-                        Text('Name'),
-                        Spacer(),
-                        Text('Date'),
+                        Expanded(
+                          child: Wrap(
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Abdullahi Addow',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                  children: [
+                                    TextSpan(text: ' . '),
+                                    TextSpan(
+                                      text: 'Jul 19',
+                                      style:
+                                          Theme.of(context).textTheme.caption,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
+                    SizedBox(height: 10),
                     Text(
-                        'This is very long text text text text text text  text text text text text text  text text text text text text  text text text text text text.'),
+                      '7 Money Making Side Projects You Can Do As A Developer',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(height: 1.3),
+                    ),
                   ],
                 ),
               ),
@@ -88,11 +162,40 @@ class ArticleWidget extends StatelessWidget {
             ],
           ),
           Row(
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: 'Read more',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: Colors.green),
+                  children: [
+                    TextSpan(text: '   .'),
+                  ],
+                ),
+              ),
+              SizedBox(width: 10),
+              SizedBox(
+                height: 30,
+                child: Chip(
+                  label: Text(
+                    'Programming',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+              ),
+            ],
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.bookmark),
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.zero,
+                icon: Icon(Icons.bookmark_add_outlined),
               ),
               Row(
                 children: [
@@ -100,7 +203,10 @@ class ArticleWidget extends StatelessWidget {
                     children: [
                       Icon(Icons.comment),
                       SizedBox(width: 5),
-                      Text('5'),
+                      Text(
+                        '5',
+                        style: Theme.of(context).textTheme.caption,
+                      ),
                     ],
                   ),
                   SizedBox(width: 10),
@@ -108,13 +214,16 @@ class ArticleWidget extends StatelessWidget {
                     children: [
                       Icon(Icons.thumb_up),
                       SizedBox(width: 5),
-                      Text('255'),
+                      Text(
+                        '255',
+                        style: Theme.of(context).textTheme.caption,
+                      ),
                     ],
                   )
                 ],
               )
             ],
-          )
+          ),
         ],
       ),
     );

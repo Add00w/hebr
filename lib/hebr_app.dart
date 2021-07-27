@@ -8,7 +8,6 @@ import 'package:hebr/ui/pages/splash_page.dart';
 import 'package:hebr/utils/hebr_theme.dart';
 
 import 'generated/locale_keys.g.dart';
-import 'ui/pages/home_page.dart';
 
 class HebrApp extends StatelessWidget {
   @override
