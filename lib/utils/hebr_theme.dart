@@ -9,7 +9,7 @@ class HebrTheme {
           base.textSelectionTheme.copyWith(cursorColor: Colors.teal),
       colorScheme: base.colorScheme.copyWith(
         primary: Colors.white70,
-        primaryVariant: Colors.white60,
+        primaryVariant: Colors.grey.shade200,
         secondary: Colors.white,
         secondaryVariant: Colors.white70,
         onPrimary: Colors.black87,
@@ -26,15 +26,17 @@ class HebrTheme {
         backgroundColor: Colors.white,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        unselectedIconTheme: base.iconTheme.copyWith(color: Colors.black54),
-        selectedIconTheme: base.iconTheme.copyWith(color: Colors.black),
+        unselectedIconTheme: base.iconTheme.copyWith(color: Colors.black26),
+        selectedIconTheme: base.iconTheme.copyWith(color: Colors.green),
       ),
       appBarTheme: base.appBarTheme.copyWith(
         backwardsCompatibility: false,
         backgroundColor: Colors.white,
       ),
-      iconTheme: base.iconTheme.copyWith(opacity: 0.5),
-      textTheme: _buildShrineTextTheme(base.textTheme),
+      iconTheme: base.iconTheme.copyWith(opacity: 0.4),
+      textTheme: _buildShrineTextTheme(base.textTheme.copyWith(
+          bodyText2:
+              base.textTheme.bodyText2!.copyWith(color: Colors.black38))),
       inputDecorationTheme: base.inputDecorationTheme.copyWith(
         labelStyle: base.textTheme.caption,
         isDense: true,
@@ -57,6 +59,7 @@ class HebrTheme {
           ),
           headline6: base.headline6!.copyWith(
             fontSize: 18.0,
+            fontWeight: FontWeight.bold,
           ),
           caption: base.caption!.copyWith(
             fontWeight: FontWeight.w400,
@@ -67,7 +70,7 @@ class HebrTheme {
             fontSize: 16.0,
           ),
           bodyText2: base.bodyText2!.copyWith(
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w600,
             fontSize: 16.0,
           ),
         )
@@ -79,9 +82,11 @@ class HebrTheme {
   static ThemeData darkTheme() {
     final ThemeData base = ThemeData.dark();
     return base.copyWith(
+      textSelectionTheme:
+          base.textSelectionTheme.copyWith(cursorColor: Colors.teal),
       colorScheme: base.colorScheme.copyWith(
         primary: Colors.black87,
-        primaryVariant: Colors.black,
+        primaryVariant: Colors.grey.shade900,
         secondary: Colors.black87,
         secondaryVariant: Colors.black,
         onPrimary: Colors.white,
@@ -95,12 +100,12 @@ class HebrTheme {
         brightness: Brightness.dark,
       ),
       bottomNavigationBarTheme: base.bottomNavigationBarTheme.copyWith(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        unselectedIconTheme: base.iconTheme.copyWith(color: Colors.black54),
+        selectedIconTheme: base.iconTheme.copyWith(color: Colors.teal[100]),
       ),
-      iconTheme: base.iconTheme.copyWith(opacity: 0.5),
+      iconTheme: base.iconTheme.copyWith(color: Colors.white),
       inputDecorationTheme: base.inputDecorationTheme.copyWith(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -113,6 +118,7 @@ class HebrTheme {
         isDense: true,
       ),
       textTheme: _buildShrineTextTheme(base.textTheme),
+      backgroundColor: Colors.black,
       appBarTheme: base.appBarTheme.copyWith(
         backwardsCompatibility: false,
         backgroundColor: Colors.black26,
