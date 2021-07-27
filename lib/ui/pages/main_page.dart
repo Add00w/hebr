@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hebr/blocs/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:hebr/ui/pages/home_page.dart';
-import 'package:hebr/ui/pages/settings_page.dart';
+import 'package:hebr/ui/pages/profile_page.dart';
+import 'package:hebr/ui/pages/publish_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
   static const _pages = [
     HomePage(),
     SizedBox(),
+    PublishPage(),
     SizedBox(),
-    SizedBox(),
-    SettingsPage(),
+    ProfilePage()
   ];
   @override
   Widget build(BuildContext context) {
