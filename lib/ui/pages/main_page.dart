@@ -4,16 +4,19 @@ import 'package:hebr/blocs/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:hebr/ui/pages/home_page.dart';
 import 'package:hebr/ui/pages/profile_page.dart';
 import 'package:hebr/ui/pages/publish_page.dart';
+import 'package:hebr/ui/pages/search_page.dart';
+import 'package:hebr/ui/pages/search_result.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
   static const _pages = [
     HomePage(),
-    SizedBox(),
+    SearchResult(),
     PublishPage(),
     SizedBox(),
     ProfilePage()
   ];
+  String? _searchArticle;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -23,7 +26,16 @@ class MainPage extends StatelessWidget {
           return Scaffold(
             body: _pages[currentIndex],
             bottomNavigationBar: BottomNavigationBar(
-              onTap: context.read<BottomNavCubit>().changeBottomNavIndex,
+              onTap: (index) async {
+                if (index == 1 &&
+                    (_searchArticle == null || _searchArticle!.isEmpty)) {
+                  _searchArticle = await showSearch(
+                      context: context, delegate: SearchPage());
+                  context.read<BottomNavCubit>().changeBottomNavIndex(index);
+                } else {
+                  context.read<BottomNavCubit>().changeBottomNavIndex(index);
+                }
+              },
               currentIndex: currentIndex,
               type: BottomNavigationBarType.fixed,
               items: [
