@@ -31,7 +31,7 @@ class HebrApp extends StatelessWidget {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            title: LocaleKeys.app_title,
+            title: LocaleKeys.app_title.tr(),
             home: BlocBuilder<SplashPageCubit, bool>(
               builder: (context, isFirstTime) {
                 if (isFirstTime) {
