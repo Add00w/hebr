@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "895598075699",
+    "project_id": "hebr-f0fc8",
+    "storage_bucket": "hebr-f0fc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895598075699:android:027f5b76ae6976fb8ee846",
+        "android_client_info": {
+          "package_name": "com.hebr.hebr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895598075699-u58abgm2b6lhjiv8dro8kh6evr465f62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIApabfllimih96Ult4fU1aAKM4Yqc-No"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895598075699-u58abgm2b6lhjiv8dro8kh6evr465f62.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
