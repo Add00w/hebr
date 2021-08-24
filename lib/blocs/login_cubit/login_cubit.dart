@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:hebr/blocs/form_submission_status.dart';
 import 'package:hebr/repositories/auth_repository_impl.dart';
@@ -14,11 +16,24 @@ class LoginCubit extends Cubit<LoginState> {
         status: FormSubmitting(),
       ),
     );
-    await authRepo.login(
+    final result = await authRepo.signInWithEmailAndPassword(
       username: state.username,
       password: state.password,
       isRemember: state.isRemember,
     );
+    log('$result');
+    if (result is bool) {
+      if (result) {
+        //loggedin successfully
+        log('loggedin successfully');
+      } else {
+        //General login failure. Please try again later
+        log('General login failure. Please try again later');
+      }
+    } else {
+      //Login Failure
+      log('Login Failure');
+    }
     emit(
       state.copyWith(
         status: Formsubmitted(),

@@ -16,7 +16,7 @@ class SignupCubit extends Cubit<SignupState> {
         status: FormSubmitting(),
       ),
     );
-    await authRepo.signup(
+    await authRepo.createUserWithEmailAndPassword(
       username: state.username,
       email: state.email,
       password: state.password,

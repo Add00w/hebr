@@ -15,6 +15,7 @@ class LoginPage extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => AuthRepositoryImpl(),
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: BlocProvider<LoginCubit>(
           create: (context) => LoginCubit(
             authRepo: context.read<AuthRepositoryImpl>(),
@@ -93,10 +94,22 @@ class LoginPage extends StatelessWidget {
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(
-                                        Theme.of(context).primaryColor),
+                                      Colors.green.shade900,
+                                    ),
+                                    side: MaterialStateProperty.all(
+                                        BorderSide.none),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                    ),
                                   ),
                                   child: Text(
                                     LocaleKeys.continue_to.tr(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(color: Colors.white),
                                   ),
                                 );
                         }),
@@ -121,7 +134,7 @@ class LoginPage extends StatelessWidget {
                       TextSpan(
                         text: LocaleKeys.join_now.tr(),
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: Theme.of(context).accentColor,
+                              color: Colors.green,
                             ),
                       ),
                     ],

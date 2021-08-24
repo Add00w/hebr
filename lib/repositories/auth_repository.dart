@@ -1,10 +1,10 @@
 abstract class AuthRepository {
-  Future<void> login({
+  Future<dynamic> signInWithEmailAndPassword({
     required String username,
     required String password,
     required bool isRemember,
   });
-  Future<void> signup({
+  Future<dynamic> createUserWithEmailAndPassword({
     required String username,
     required String email,
     required String password,

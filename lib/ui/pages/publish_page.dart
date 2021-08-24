@@ -3,73 +3,79 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:hebr/blocs/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:hebr/blocs/publish_cubit/publish_cubit.dart';
 import 'package:hebr/repositories/articles_repository_impl.dart';
-import 'package:tuple/tuple.dart';
-// import 'package:zefyr/zefyr.dart';
+import 'package:hebr/ui/pages/authenticated_pages.dart';
 
 class PublishPage extends StatelessWidget {
   const PublishPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PublishCubit>(
-      create: (context) =>
-          PublishCubit(ArticlesRepositoryImpl())..loadDocument(),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: BlocBuilder<PublishCubit, PublishState>(
-              builder: (context, state) {
-                return state is AssetsLoaded
-                    ? Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                  padding: EdgeInsets.zero,
-                                  alignment: Alignment.centerLeft,
-                                  onPressed: () {
-                                    log('close');
+    return AuthenticatedPages(
+      page: BlocProvider<PublishCubit>(
+        create: (context) =>
+            PublishCubit(ArticlesRepositoryImpl())..loadDocument(),
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: BlocBuilder<PublishCubit, PublishState>(
+                builder: (context, state) {
+                  return state is AssetsLoaded
+                      ? Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                    padding: EdgeInsets.zero,
+                                    alignment: Alignment.centerLeft,
+                                    onPressed: () {
+                                      log('close');
+                                      context
+                                          .read<BottomNavCubit>()
+                                          .changeBottomNavIndex(0);
+                                    },
+                                    icon: Icon(Icons.close)),
+                                GestureDetector(
+                                  onTap: () {
+                                    log('publish');
+                                    context.read<PublishCubit>().publish();
                                   },
-                                  icon: Icon(Icons.close)),
-                              GestureDetector(
-                                onTap: () {
-                                  log('publish');
-                                },
-                                child: Text(
-                                  'Publish',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2!
-                                      .copyWith(color: Colors.green),
+                                  child: Text(
+                                    'Publish',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(color: Colors.green),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+                            Expanded(
+                              child: Container(
+                                child: QuillEditor.basic(
+                                  controller:
+                                      context.read<PublishCubit>().controller!,
+                                  readOnly: false, // true for view only mode
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Expanded(
-                            child: Container(
-                              child: QuillEditor.basic(
-                                controller:
-                                    context.read<PublishCubit>().controller!,
-                                readOnly: false, // true for view only mode
-                              ),
                             ),
-                          ),
-                          QuillToolbar.basic(
-                            controller:
-                                context.read<PublishCubit>().controller!,
-                          ),
-                        ],
-                      )
-                    : Container(
-                        child: Text('loading...'),
-                      );
-              },
+                            QuillToolbar.basic(
+                              controller:
+                                  context.read<PublishCubit>().controller!,
+                            ),
+                          ],
+                        )
+                      : Container(
+                          child: Text('loading...'),
+                        );
+                },
+              ),
             ),
           ),
         ),

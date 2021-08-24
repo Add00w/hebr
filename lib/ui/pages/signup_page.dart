@@ -14,6 +14,8 @@ class SignupPage extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => AuthRepositoryImpl(),
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        resizeToAvoidBottomInset: false,
         body: BlocProvider<SignupCubit>(
           create: (context) => SignupCubit(
             authRepo: context.read<AuthRepositoryImpl>(),
@@ -28,12 +30,9 @@ class SignupPage extends StatelessWidget {
                   children: [
                     Text(
                       LocaleKeys.join_us.tr(),
-                      // style: TextStyle(
-                      //     color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       LocaleKeys.join_share_your_ideas_with_us.tr(),
-                      // style: TextStyle(color: Colors.black54, fontSize: 14),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -87,7 +86,6 @@ class SignupPage extends StatelessWidget {
                                 ),
                                 Text(
                                   LocaleKeys.agree_policy.tr(),
-                                  // style: TextStyle(color: Colors.black),
                                 )
                               ],
                             ),
@@ -113,11 +111,22 @@ class SignupPage extends StatelessWidget {
                                     style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                        Theme.of(context).primaryColor,
+                                        Colors.green.shade900,
+                                      ),
+                                      side: MaterialStateProperty.all(
+                                          BorderSide.none),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
                                       ),
                                     ),
                                     child: Text(
                                       LocaleKeys.continue_to.tr(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(color: Colors.white),
                                     ),
                                   );
                           },
@@ -153,10 +162,6 @@ class HebrTextFormField extends StatelessWidget {
       builder: (context, state) {
         return TextFormField(
           obscureText: isObscureText ? !state.isPasswordVisible : isObscureText,
-          // style: Theme.of(context)
-          //     .textTheme
-          //     .bodyText2!
-          //     .copyWith(color: Colors.black),
           decoration: InputDecoration(
             isDense: true,
             labelText: labelText,
@@ -174,9 +179,6 @@ class HebrTextFormField extends StatelessWidget {
                     ),
                   )
                 : null,
-            // border: OutlineInputBorder(
-            //   borderRadius: BorderRadius.circular(10),
-            // ),
           ),
           validator: (_) {
             if (isObscureText && isConfirmPassword) {
