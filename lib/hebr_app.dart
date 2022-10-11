@@ -1,15 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hebr/blocs/splash_page_cubit/splash_page_cubit.dart';
-import 'package:hebr/blocs/theme_cubit/theme_cubit.dart';
-import 'package:hebr/ui/pages/main_page.dart';
-import 'package:hebr/ui/pages/splash_page.dart';
-import 'package:hebr/utils/hebr_theme.dart';
 
-import 'generated/locale_keys.g.dart';
+import './common/bloc/theme_cubit.dart';
+import './common/ui/pages/main_page.dart';
+import './common/utils/hebr_theme.dart';
+import './features/search/bloc/search_cubit.dart';
+import './features/splash/splash_page.dart';
+import './features/splash/splash_page_cubit.dart';
+import './generated/locale_keys.g.dart';
 
 class HebrApp extends StatelessWidget {
+  const HebrApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -35,9 +38,12 @@ class HebrApp extends StatelessWidget {
             home: BlocBuilder<SplashPageCubit, bool>(
               builder: (context, isFirstTime) {
                 if (isFirstTime) {
-                  return SplashPage();
+                  return const SplashPage();
                 }
-                return MainPage();
+                return BlocProvider(
+                  create: (context) => SearchCubit(),
+                  child: const MainPage(),
+                );
               },
             ),
           );
