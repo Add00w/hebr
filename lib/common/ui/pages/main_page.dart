@@ -2,26 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../features/home/ui/pages/home_page.dart';
+import '../../../features/library/ui/pages/saved_articles.dart';
 import '../../../features/profile/ui/pages/profile_page.dart';
 import '../../../features/publish/ui/pages/publish_page.dart';
-import '../../../features/search/bloc/search_cubit.dart';
-import '../../../features/search/ui/pages/search_page.dart';
-import '../../../features/search/ui/pages/search_result.dart';
+import '../../../features/search/ui/pages/initial_search_page.dart';
 import '../../bloc/bottom_nav_cubit.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
   static const _pages = [
     HomePage(),
-    SearchResultPage(),
+    InitialSearchPage(),
     PublishPage(),
-    SizedBox(),
+    SavedArticlesPage(),
     ProfilePage()
   ];
   @override
   Widget build(BuildContext context) {
-    String result =
-        (BlocProvider.of<SearchCubit>(context).state as SearchResult).result;
     return BlocProvider(
       create: (context) => BottomNavCubit(),
       child: BlocBuilder<BottomNavCubit, int>(
@@ -29,19 +26,7 @@ class MainPage extends StatelessWidget {
           return Scaffold(
             body: _pages[currentIndex],
             bottomNavigationBar: BottomNavigationBar(
-              onTap: (index) async {
-                if (index == 1 && (result.isEmpty)) {
-                  result = await showSearch(
-                        context: context,
-                        delegate: SearchPage(),
-                      ) ??
-                      '';
-                  context.read<BottomNavCubit>().changeBottomNavIndex(index);
-                  BlocProvider.of<SearchCubit>(context).selectedResult(result);
-                } else {
-                  context.read<BottomNavCubit>().changeBottomNavIndex(index);
-                }
-              },
+              onTap: context.read<BottomNavCubit>().changeBottomNavIndex,
               currentIndex: currentIndex,
               type: BottomNavigationBarType.fixed,
               items: const [
