@@ -7,23 +7,24 @@ class ArticleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      margin: const EdgeInsets.symmetric(vertical: 2),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 2,
+      ),
       child: Column(
         children: [
           Row(
             children: [
               Flexible(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       children: [
-                        SizedBox(
-                          height: 15,
-                          width: 15,
-                          child: Image.asset('assets/images/new_azure_a.png'),
+                        const CircleAvatar(
+                          foregroundImage:
+                              AssetImage('assets/images/new_azure_a.png'),
+                          radius: 14,
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -50,8 +51,8 @@ class ArticleWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      '7 Money Making Side Projects You Can Do As A Developer',
-                      maxLines: 2,
+                      '7 Money Making Side Projects You Can Do As A Developer You Can Do As A Developer You Can Do As A Developer.',
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
@@ -71,27 +72,23 @@ class ArticleWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              RichText(
-                text: TextSpan(
-                  text: 'Read more',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(color: Colors.green),
-                  children: const [
-                    TextSpan(text: '   .'),
-                  ],
-                ),
+              Text(
+                'Read more .',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .copyWith(color: Colors.green),
               ),
               const SizedBox(width: 10),
-              SizedBox(
-                height: 30,
-                child: Chip(
-                  label: Text(
-                    'Programming',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                  padding: EdgeInsets.zero,
+              Chip(
+                label: Text(
+                  'Programming',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                padding: EdgeInsets.zero,
+                labelPadding: const EdgeInsets.only(
+                  right: 8,
+                  left: 8,
                 ),
               ),
             ],
