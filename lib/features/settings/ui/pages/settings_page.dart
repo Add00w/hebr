@@ -9,18 +9,12 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Settings',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-        elevation: 0.0,
-        centerTitle: true,
+        title: const Text('Settings'),
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomDivider(height: 10, child: SizedBox()),
+          const CustomDivider(height: 10, child: SizedBox.shrink()),
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Text(
@@ -56,13 +50,6 @@ class SettingsPage extends StatelessWidget {
                       .bodyText1!
                       .copyWith(fontSize: 15),
                 ),
-                // Text(
-                //   'System default',
-                //   style: Theme.of(context)
-                //       .textTheme
-                //       .bodyText1!
-                //       .copyWith(color: Colors.green),
-                // ),
                 BlocBuilder<ThemeCubit, bool>(
                   builder: (context, isDark) {
                     return Switch.adaptive(
@@ -102,17 +89,3 @@ class CustomDivider extends StatelessWidget {
     );
   }
 }
-/*
-
-  BlocBuilder<ThemeCubit, bool>(
-            builder: (context, isDark) {
-              return Switch.adaptive(
-                value: isDark,
-                onChanged: context.read<ThemeCubit>().toggleTheme,
-              );
-            },
-          )
-
-
-          await context.setLocale(Locale('en'));
-*/
