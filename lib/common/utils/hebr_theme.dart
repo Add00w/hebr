@@ -20,6 +20,7 @@ class HebrTheme {
         onSurface: Colors.black,
         brightness: Brightness.light,
       ),
+      scaffoldBackgroundColor: Colors.white,
       bottomNavigationBarTheme: base.bottomNavigationBarTheme.copyWith(
         backgroundColor: Colors.white,
         showSelectedLabels: false,
@@ -29,26 +30,36 @@ class HebrTheme {
       ),
       appBarTheme: base.appBarTheme.copyWith(
         backgroundColor: Colors.white,
+        elevation: 0.0,
+        centerTitle: true,
+        titleTextStyle: base.textTheme.bodyText1!.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: 16.0,
+        ),
       ),
       iconTheme: base.iconTheme.copyWith(opacity: 0.4),
-      textTheme: _buildShrineTextTheme(base.textTheme.copyWith(
-          bodyText2:
-              base.textTheme.bodyText2!.copyWith(color: Colors.black38))),
+      textTheme: _buildHebrTextTheme(
+        base.textTheme.copyWith(
+          bodyText2: base.textTheme.bodyText2!.copyWith(color: Colors.black38),
+        ),
+      ),
       inputDecorationTheme: base.inputDecorationTheme.copyWith(
         labelStyle: base.textTheme.caption,
-        isDense: true,
-        border: OutlineInputBorder(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey.shade400),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: Colors.teal),
         ),
+        prefixIconColor: Colors.grey.shade400,
       ),
     );
   }
 
-  static TextTheme _buildShrineTextTheme(TextTheme base) {
+  static TextTheme _buildHebrTextTheme(TextTheme base) {
     return base
         .copyWith(
           headline5: base.headline5!.copyWith(
@@ -94,6 +105,7 @@ class HebrTheme {
         onSurface: Colors.white,
         brightness: Brightness.dark,
       ),
+      scaffoldBackgroundColor: Colors.black87,
       bottomNavigationBarTheme: base.bottomNavigationBarTheme.copyWith(
         backgroundColor: Colors.black,
         showSelectedLabels: false,
@@ -102,20 +114,28 @@ class HebrTheme {
       ),
       iconTheme: base.iconTheme.copyWith(color: Colors.white),
       inputDecorationTheme: base.inputDecorationTheme.copyWith(
-        border: OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey.shade600),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.teal),
+          borderSide: BorderSide(color: Colors.grey.shade600),
         ),
         labelStyle: base.textTheme.caption,
-        isDense: true,
+        prefixIconColor: Colors.grey.shade400,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12),
       ),
-      textTheme: _buildShrineTextTheme(base.textTheme),
+      textTheme: _buildHebrTextTheme(base.textTheme),
       backgroundColor: Colors.black,
       appBarTheme: base.appBarTheme.copyWith(
         backgroundColor: Colors.black26,
+        elevation: 0.0,
+        centerTitle: true,
+        titleTextStyle: base.textTheme.bodyText1!.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: 16.0,
+        ),
       ),
     );
   }
