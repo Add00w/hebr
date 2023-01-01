@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/bloc/form_submission_status.dart';
 import '../../../../common/ui/pages/authenticated_pages.dart';
+import '../../../auth/bloc/auth_cubit.dart';
 import '../../../auth/bloc/login_cubit.dart';
-import '../../../auth/repositories/auth_repository_impl.dart';
+import '../../../auth/repositories/auth_repository.dart';
+import '../../../auth/ui/widgets/circular_loading_widget.dart';
 import '../../../settings/ui/pages/settings_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -12,6 +14,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AuthCubit>().state;
     return AuthenticatedPages(
       page: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
@@ -34,8 +37,9 @@ class ProfilePage extends StatelessWidget {
                       title: Text('Stats'),
                     ),
                   ),
-                  const PopupMenuItem(
-                    child: ListTile(
+                  PopupMenuItem(
+                    onTap: () {},
+                    child: const ListTile(
                       title: Text('Edit your profile'),
                     ),
                   ),
@@ -60,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                     size: 100,
                   ),
                   Text(
-                    'Addow',
+                    user?.displayName ?? user?.email ?? 'Addow',
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
@@ -68,20 +72,15 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const Spacer(),
                   RepositoryProvider(
-                    create: (context) => AuthRepositoryImpl(),
+                    create: (context) => AuthRepository(),
                     child: BlocProvider<LoginCubit>(
                       create: (context) => LoginCubit(
-                        authRepo: context.read<AuthRepositoryImpl>(),
+                        authRepo: context.read<AuthRepository>(),
                       ),
                       child: BlocBuilder<LoginCubit, LoginState>(
                         builder: (context, loginController) =>
                             loginController.status is FormSubmitting
-                                ? const Center(
-                                    child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: CircularProgressIndicator(
-                                        color: Colors.green),
-                                  ))
+                                ? const CircularLoadingWidget()
                                 : IconButton(
                                     onPressed: () {
                                       context.read<LoginCubit>().logout();
@@ -106,12 +105,14 @@ class ProfilePage extends StatelessWidget {
                 margin:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .color!
-                            .withOpacity(0.1))),
+                  border: Border.all(
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .color!
+                        .withOpacity(0.1),
+                  ),
+                ),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 4,
                 child: Column(

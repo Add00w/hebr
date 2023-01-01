@@ -1,30 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AuthCubit extends HydratedCubit<bool> {
+class AuthCubit extends Cubit<User?> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  AuthCubit() : super(false);
+  AuthCubit() : super(null);
   void init() async {
-    _firebaseAuth.authStateChanges().listen((User? user) {
-      if (user == null) {
-        debugPrint('User is currently signed out!');
-        emit(false);
-      } else {
-        debugPrint('User is signed in!');
-        emit(true);
-      }
-    });
-  }
-
-  @override
-  bool? fromJson(Map<String, dynamic> json) {
-    return json['isAuthenticated'] as bool;
-  }
-
-  @override
-  Map<String, dynamic>? toJson(bool state) {
-    return {'isAuthenticated': state};
+    _firebaseAuth.authStateChanges().listen(emit);
   }
 }
