@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,15 +10,12 @@ class AuthenticatedPages extends StatelessWidget {
   final Widget page;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit()..init(),
-      child: Builder(builder: (_) {
-        return BlocBuilder<AuthCubit, bool>(
-          builder: (context, isAuthenticated) {
-            return isAuthenticated ? page : LoginPage();
-          },
-        );
-      }),
-    );
+    return Builder(builder: (_) {
+      return BlocBuilder<AuthCubit, User?>(
+        builder: (context, user) {
+          return user != null ? page : LoginPage();
+        },
+      );
+    });
   }
 }

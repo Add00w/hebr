@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import './common/bloc/theme_cubit.dart';
 import './common/ui/pages/main_page.dart';
 import './common/utils/hebr_theme.dart';
+import './features/auth/bloc/auth_cubit.dart';
 import './features/search/bloc/search_cubit.dart';
 import './features/splash/splash_page.dart';
 import './features/splash/splash_page_cubit.dart';
@@ -22,6 +23,9 @@ class HebrApp extends StatelessWidget {
         ),
         BlocProvider<ThemeCubit>(
           create: (context) => ThemeCubit(),
+        ),
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit()..init(),
         ),
       ],
       child: BlocBuilder<ThemeCubit, bool>(
