@@ -41,7 +41,7 @@ class _SplashPageState extends State<SplashPage> {
             bottom: MediaQuery.of(context).size.height * 0.05,
             child: Text(
               LocaleKeys.share_your_ideas_with_world.tr(),
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
         ],
