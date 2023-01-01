@@ -40,7 +40,7 @@ class SignupTextFormField extends StatelessWidget {
                           : Icons.visibility_off_outlined,
                     ),
                   )
-                : null,
+                : const SizedBox.shrink(),
           ),
           validator: (_) {
             if (isObscureText && isConfirmPassword) {
