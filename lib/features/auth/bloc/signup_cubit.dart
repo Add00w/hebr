@@ -1,33 +1,41 @@
 import 'package:bloc/bloc.dart';
 
 import '../../../common/bloc/form_submission_status.dart';
-import '../repositories/auth_repository_impl.dart';
+import '../repositories/auth_repository.dart';
 
 part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
   SignupCubit({required this.authRepo}) : super(SignupState());
 
-  final AuthRepositoryImpl authRepo;
+  final AuthRepository authRepo;
 
   void signup() async {
-    emit(
-      state.copyWith(
-        status: FormSubmitting(),
-      ),
-    );
-    await authRepo.createUserWithEmailAndPassword(
-      username: state.username,
-      email: state.email,
-      password: state.password,
-      confirmPassword: state.confirmPassword,
-      agreePolicy: state.agreePolicy,
-    );
-    emit(
-      state.copyWith(
-        status: Formsubmitted(),
-      ),
-    );
+    try {
+      emit(
+        state.copyWith(
+          status: FormSubmitting(),
+        ),
+      );
+      await authRepo.createUserWithEmailAndPassword(
+        username: state.username,
+        email: state.email,
+        password: state.password,
+        confirmPassword: state.confirmPassword,
+        agreePolicy: state.agreePolicy,
+      );
+      emit(
+        state.copyWith(
+          status: Formsubmitted(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: FormSubmissionFailed(e as Exception),
+        ),
+      );
+    }
   }
 
   void usernameChanged(String username) {

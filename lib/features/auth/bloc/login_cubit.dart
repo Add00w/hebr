@@ -1,15 +1,13 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:hebr/common/bloc/form_submission_status.dart';
 
-import '../repositories/auth_repository_impl.dart';
+import '../repositories/auth_repository.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({required this.authRepo}) : super(LoginState());
-  final AuthRepositoryImpl authRepo;
+  final AuthRepository authRepo;
 
   void login() async {
     emit(
@@ -17,13 +15,19 @@ class LoginCubit extends Cubit<LoginState> {
         status: FormSubmitting(),
       ),
     );
-    await Future.delayed(const Duration(seconds: 2));
-    final result = await authRepo.signInWithEmailAndPassword(
-      username: state.username,
-      password: state.password,
-      isRemember: state.isRemember,
-    );
-    log('$result');
+    try {
+      await authRepo.signInWithEmailAndPassword(
+        username: state.username,
+        password: state.password,
+        isRemember: state.isRemember,
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: FormSubmissionFailed(e as Exception),
+        ),
+      );
+    }
     emit(
       state.copyWith(
         status: Formsubmitted(),
@@ -37,7 +41,6 @@ class LoginCubit extends Cubit<LoginState> {
         status: FormSubmitting(),
       ),
     );
-    await Future.delayed(const Duration(seconds: 2));
     await authRepo.signout();
     emit(
       state.copyWith(

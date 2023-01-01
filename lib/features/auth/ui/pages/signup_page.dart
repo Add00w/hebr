@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../common/bloc/form_submission_status.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../bloc/signup_cubit.dart';
-import '../../repositories/auth_repository_impl.dart';
+import '../../repositories/auth_repository.dart';
+import '../widgets/circular_loading_widget.dart';
 import '../widgets/signup_text_form_field.dart';
 
 class SignupPage extends StatelessWidget {
@@ -14,13 +15,13 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => AuthRepositoryImpl(),
+      create: (context) => AuthRepository(),
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         resizeToAvoidBottomInset: false,
         body: BlocProvider<SignupCubit>(
           create: (context) => SignupCubit(
-            authRepo: context.read<AuthRepositoryImpl>(),
+            authRepo: context.read<AuthRepository>(),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,11 +99,28 @@ class SignupPage extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: 50,
-                        child: BlocBuilder<SignupCubit, SignupState>(
+                        child: BlocConsumer<SignupCubit, SignupState>(
+                          listener: (context, state) {
+                            if (state.status is FormSubmissionFailed) {
+                              // show error
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      (state.status as FormSubmissionFailed)
+                                          .exception
+                                          .toString(),
+                                    ),
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                            }
+                          },
                           builder: (context, state) {
                             return state.status is FormSubmitting
-                                ? const Center(
-                                    child: CircularProgressIndicator())
+                                ? const CircularLoadingWidget()
                                 : ElevatedButton(
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {

@@ -6,7 +6,8 @@ import './signup_page.dart';
 import '../../../../common/bloc/form_submission_status.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../bloc/login_cubit.dart';
-import '../../repositories/auth_repository_impl.dart';
+import '../../repositories/auth_repository.dart';
+import '../widgets/circular_loading_widget.dart';
 import '../widgets/signin_text_form_field.dart';
 
 class LoginPage extends StatelessWidget {
@@ -15,12 +16,12 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => AuthRepositoryImpl(),
+      create: (context) => AuthRepository(),
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         body: BlocProvider<LoginCubit>(
           create: (context) => LoginCubit(
-            authRepo: context.read<AuthRepositoryImpl>(),
+            authRepo: context.read<AuthRepository>(),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -28,14 +29,15 @@ class LoginPage extends StatelessWidget {
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
                       LocaleKeys.login,
                     ).tr(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 50),
+                        horizontal: 15,
+                        vertical: 50,
+                      ),
                       child: Form(
                           key: _formKey,
                           child: Column(
@@ -84,15 +86,27 @@ class LoginPage extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: 50,
-                        child: BlocBuilder<LoginCubit, LoginState>(
-                            builder: (context, state) {
+                        child: BlocConsumer<LoginCubit, LoginState>(
+                            listener: (context, state) {
+                          if (state.status is FormSubmissionFailed) {
+                            // show error
+                            ScaffoldMessenger.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    (state.status as FormSubmissionFailed)
+                                        .exception
+                                        .toString(),
+                                  ),
+                                  behavior: SnackBarBehavior.floating,
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                          }
+                        }, builder: (context, state) {
                           return state.status is FormSubmitting
-                              ? const Center(
-                                  child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: CircularProgressIndicator(
-                                      color: Colors.green),
-                                ))
+                              ? const CircularLoadingWidget()
                               : ElevatedButton(
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
