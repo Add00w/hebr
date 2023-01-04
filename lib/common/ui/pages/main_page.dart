@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../features/home/ui/pages/home_page.dart';
-import '../../../features/library/ui/pages/saved_articles.dart';
-import '../../../features/profile/ui/pages/profile_page.dart';
-import '../../../features/publish/ui/pages/publish_page.dart';
-import '../../../features/search/ui/pages/initial_search_page.dart';
-import '../../bloc/bottom_nav_cubit.dart';
+import '../../../features/bookmarks/bookmarks.dart';
+import '../../../features/home/home.dart';
+import '../../../features/profile/profile.dart';
+import '../../../features/publish/publish.dart';
+import '../../../features/search/search.dart';
+import '../../bloc/bloc.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class MainPage extends StatelessWidget {
     HomePage(),
     InitialSearchPage(),
     PublishPage(),
-    SavedArticlesPage(),
+    BookmarksPage(),
     ProfilePage()
   ];
   @override

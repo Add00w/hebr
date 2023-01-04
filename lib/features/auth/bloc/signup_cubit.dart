@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 
 import '../../../common/bloc/form_submission_status.dart';
-import '../repositories/auth_repository.dart';
+import '../data/data.dart';
 
 part 'signup_state.dart';
 

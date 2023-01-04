@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../common/bloc/form_submission_status.dart';
-import '../../../../common/ui/pages/authenticated_pages.dart';
-import '../../../auth/bloc/auth_cubit.dart';
-import '../../../auth/bloc/login_cubit.dart';
-import '../../../auth/repositories/auth_repository.dart';
-import '../../../auth/ui/widgets/circular_loading_widget.dart';
-import '../../../settings/ui/pages/settings_page.dart';
+import '../../../../common/common.dart';
+import '../../../auth/auth.dart';
+import '../../../settings/settings.dart';
+import '../widgets/widgets.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -71,23 +68,20 @@ class ProfilePage extends StatelessWidget {
                         .copyWith(fontSize: 14),
                   ),
                   const Spacer(),
-                  RepositoryProvider(
-                    create: (context) => AuthRepository(),
-                    child: BlocProvider<LoginCubit>(
-                      create: (context) => LoginCubit(
-                        authRepo: context.read<AuthRepository>(),
-                      ),
-                      child: BlocBuilder<LoginCubit, LoginState>(
-                        builder: (context, loginController) =>
-                            loginController.status is FormSubmitting
-                                ? const CircularLoadingWidget()
-                                : IconButton(
-                                    onPressed: () {
-                                      context.read<LoginCubit>().logout();
-                                    },
-                                    icon: const Icon(Icons.logout),
-                                  ),
-                      ),
+                  BlocProvider<LoginCubit>(
+                    create: (context) => LoginCubit(
+                      authRepo: context.read<AuthRepository>(),
+                    ),
+                    child: BlocBuilder<LoginCubit, LoginState>(
+                      builder: (context, loginController) =>
+                          loginController.status is FormSubmitting
+                              ? const CircularProgressIndicatorWidget()
+                              : IconButton(
+                                  onPressed: () {
+                                    context.read<LoginCubit>().logout();
+                                  },
+                                  icon: const Icon(Icons.logout),
+                                ),
                     ),
                   ),
                 ],
@@ -126,26 +120,7 @@ class ProfilePage extends StatelessWidget {
                       'We\'d love to hear what you\'re thinking',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Start your first story',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(color: Colors.white),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.green.shade900),
-                        side: MaterialStateProperty.all(BorderSide.none),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                      ),
-                    ),
+                    const AnimatedStartStoryButton(),
                   ],
                 ),
               )

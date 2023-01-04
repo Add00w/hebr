@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:hebr/common/bloc/form_submission_status.dart';
 
-import '../repositories/auth_repository.dart';
+import '../data/data.dart';
 
 part 'login_state.dart';
 

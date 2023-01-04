@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 
-import '../../../../common/bloc/bottom_nav_cubit.dart';
-import '../../../../common/ui/pages/authenticated_pages.dart';
-import '../../../home/repositories/articles_repository_impl.dart';
+import '../../../../common/common.dart';
+import '../../../home/home.dart';
 import '../../bloc/publish_cubit.dart';
 
 class PublishPage extends StatelessWidget {
@@ -15,63 +14,67 @@ class PublishPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthenticatedPages(
-      page: BlocProvider<PublishCubit>(
-        create: (context) =>
-            PublishCubit(ArticlesRepositoryImpl())..loadDocument(),
-        child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: BlocBuilder<PublishCubit, PublishState>(
-                builder: (context, state) {
-                  return state is AssetsLoaded
-                      ? Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                    padding: EdgeInsets.zero,
-                                    alignment: Alignment.centerLeft,
-                                    onPressed: () {
-                                      log('close');
-                                      context
-                                          .read<BottomNavCubit>()
-                                          .changeBottomNavIndex(0);
+      page: RepositoryProvider(
+        create: (context) => ArticlesRepository(),
+        child: BlocProvider<PublishCubit>(
+          create: (context) =>
+              PublishCubit(context.read<ArticlesRepository>())..loadDocument(),
+          child: Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: BlocBuilder<PublishCubit, PublishState>(
+                  builder: (context, state) {
+                    return state is AssetsLoaded
+                        ? Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                      padding: EdgeInsets.zero,
+                                      alignment: Alignment.centerLeft,
+                                      onPressed: () {
+                                        log('close');
+                                        context
+                                            .read<BottomNavCubit>()
+                                            .changeBottomNavIndex(0);
+                                      },
+                                      icon: const Icon(Icons.close)),
+                                  GestureDetector(
+                                    onTap: () {
+                                      log('publish');
+                                      context.read<PublishCubit>().publish();
                                     },
-                                    icon: const Icon(Icons.close)),
-                                GestureDetector(
-                                  onTap: () {
-                                    log('publish');
-                                    context.read<PublishCubit>().publish();
-                                  },
-                                  child: Text(
-                                    'Publish',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2!
-                                        .copyWith(color: Colors.green),
+                                    child: Text(
+                                      'Publish',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(color: Colors.green),
+                                    ),
                                   ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Expanded(
+                                child: QuillEditor.basic(
+                                  controller:
+                                      context.read<PublishCubit>().controller!,
+                                  readOnly: false, // true for view only mode
                                 ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            Expanded(
-                              child: QuillEditor.basic(
+                              ),
+                              QuillToolbar.basic(
                                 controller:
                                     context.read<PublishCubit>().controller!,
-                                readOnly: false, // true for view only mode
                               ),
-                            ),
-                            QuillToolbar.basic(
-                              controller:
-                                  context.read<PublishCubit>().controller!,
-                            ),
-                          ],
-                        )
-                      : const Text('loading...');
-                },
+                            ],
+                          )
+                        : const Text('loading...');
+                  },
+                ),
               ),
             ),
           ),

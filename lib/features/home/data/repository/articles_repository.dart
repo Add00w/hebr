@@ -3,12 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:hebr/features/home/repositories/articles_repository.dart';
-// import 'package:notus/src/document.dart';
-// import 'package:quill_delta/quill_delta.dart';
 
-class ArticlesRepositoryImpl implements ArticlesRepository {
-  @override
+class ArticlesRepository {
   Future<QuillController> loadDocument() async {
     try {
       final result = await rootBundle.loadString('assets/sample_data.json');
@@ -22,7 +18,6 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
     }
   }
 
-  @override
   Future<void> saveDocument(var document) async {
     // Notus documents can be easily serialized to JSON by passing to
     // `jsonEncode` directly:

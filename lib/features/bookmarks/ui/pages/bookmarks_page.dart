@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SavedArticlesPage extends StatelessWidget {
-  const SavedArticlesPage({Key? key}) : super(key: key);
+class BookmarksPage extends StatelessWidget {
+  const BookmarksPage({Key? key}) : super(key: key);
   static const _savedArticles = [
     'What makes developers different?',
     'Humanity matters, but how to be human?',

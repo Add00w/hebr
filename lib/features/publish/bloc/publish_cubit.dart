@@ -2,13 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
-import '../../home/repositories/articles_repository_impl.dart';
+import '../../home/home.dart';
 
 part 'publish_state.dart';
 
 class PublishCubit extends Cubit<PublishState> {
-  PublishCubit(this._articlesRepositoryImpl) : super(PublishInitial());
-  final ArticlesRepositoryImpl _articlesRepositoryImpl;
+  PublishCubit(this._articlesRepository) : super(PublishInitial());
+  final ArticlesRepository _articlesRepository;
 
   void publish() {
     // debugPrint(controller?.document.toPlainText() ?? 'no text.');
@@ -22,7 +22,7 @@ class PublishCubit extends Cubit<PublishState> {
   /// Zefyr editor like any other input field requires a focus node.
   late FocusNode focusNode;
   void loadDocument() async {
-    controller = await _articlesRepositoryImpl.loadDocument();
+    controller = await _articlesRepository.loadDocument();
     emit(AssetsLoaded());
     // controller = ZefyrController(document);
     // controller = QuillController.basic();
