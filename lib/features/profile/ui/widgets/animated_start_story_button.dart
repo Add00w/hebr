@@ -41,27 +41,23 @@ class _AnimatedStartStoryButtonState extends State<AnimatedStartStoryButton>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedAlign(
-      alignment: Alignment.center,
-      duration: const Duration(milliseconds: 500),
-      child: ElevatedButton(
-        onPressed: () {
-          context.read<BottomNavCubit>().changeBottomNavIndex(2);
-        },
-        child: Text(
-          'Start your first story',
-          style: Theme.of(context)
-              .textTheme
-              .bodyText2!
-              .copyWith(color: Colors.white),
-        ),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(_colorAnimation.value),
-          side: MaterialStateProperty.all(BorderSide.none),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
+    return ElevatedButton(
+      onPressed: () {
+        context.read<BottomNavCubit>().changeBottomNavIndex(2);
+      },
+      child: Text(
+        'Start your first story',
+        style: Theme.of(context)
+            .textTheme
+            .bodyText2!
+            .copyWith(color: Colors.white),
+      ),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(_colorAnimation.value),
+        side: MaterialStateProperty.all(BorderSide.none),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
       ),
