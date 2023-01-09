@@ -20,7 +20,6 @@ class PublishPage extends StatelessWidget {
           create: (context) =>
               PublishCubit(context.read<ArticlesRepository>())..loadDocument(),
           child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.surface,
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -14,7 +14,6 @@ class ProfilePage extends StatelessWidget {
     final user = context.watch<AuthCubit>().state;
     return AuthenticatedPages(
       page: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,

@@ -14,7 +14,6 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       resizeToAvoidBottomInset: false,
       body: BlocProvider<SignupCubit>(
         create: (context) => SignupCubit(
