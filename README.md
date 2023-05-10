@@ -9,7 +9,7 @@ App like medium.
 - Hydrated bloc for offline storage
 
 <br/><br/>
-[Watch a video](https://drive.google.com/file/d/1f5QFSa-MKwZP9G5CwPOlgPzyiJhQuQuK/view?usp=sharing)
+[Watch a video](https://drive.google.com/file/d/1STqDdLiP8YAtMdb9C7OhCvcsAT4yCPk-/view?usp=sharing)
 <br/><br/>
 
 #### Screenshots
@@ -43,9 +43,9 @@ App like medium.
 <tr>
  <td style="text-align: center, width: 180">
    <a href="#">
-    <img alt="Profile" src="assets/images/hebrProfile.png" />
+    <img alt="Profile" src="assets/images/hebr_profile.png" />
     </a>
-   Profile
+   Profile in light mode
   </td>
 
    <td style="text-align: center, width: 180">
@@ -53,6 +53,21 @@ App like medium.
     <img alt="Search" src="assets/images/hebrSearch.png" />
     </a>
    Search
+  </td>
+</tr>
+<tr>
+ <td style="text-align: center, width: 180">
+   <a href="#">
+    <img alt="Profile" src="assets/images/hebr_settings.png" />
+    </a>
+   Settings darkmode
+  </td>
+
+   <td style="text-align: center, width: 180">
+   <a href="#">
+    <img alt="Popup menu" src="assets/images/hebr_popup.png" />
+    </a>
+   Popup menu
   </td>
 </tr>
 </table>

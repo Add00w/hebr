@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               PopupMenuButton(
-                icon: const Icon(Icons.more_horiz),
+                icon: const Icon(Icons.more_horiz, color: Colors.grey),
                 padding: EdgeInsets.zero,
                 color: Theme.of(context).colorScheme.surface,
                 itemBuilder: (BuildContext context) => <PopupMenuEntry>[
