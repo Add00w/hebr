@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/article_widget.dart';
@@ -31,12 +30,12 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text(
                         'Following',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Badge(
-                        badgeColor: Colors.green,
-                        position: BadgePosition.topEnd(top: 0, end: 0),
-                        showBadge: false,
+                        // badgeColor: Colors.green,
+                        // position: BadgePosition.topEnd(top: 0, end: 0),
+                        // showBadge: false,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -82,7 +81,7 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 15),
                   child: Text(
                     'TOP STORIES',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
                 Flexible(
