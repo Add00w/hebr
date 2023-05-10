@@ -7,6 +7,7 @@ App like medium.
 - Feature based architecture
 - Firebase auth.
 - Hydrated bloc for offline storage
+- Dark/light mode
 
 <br/><br/>
 [Watch a video](https://drive.google.com/file/d/1STqDdLiP8YAtMdb9C7OhCvcsAT4yCPk-/view?usp=sharing)
