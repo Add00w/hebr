@@ -8,8 +8,10 @@ App like medium.
 - Firebase auth.
 - Hydrated bloc for offline storage
 
-![Watch video](https://drive.google.com/file/d/1f5QFSa-MKwZP9G5CwPOlgPzyiJhQuQuK/view?usp=sharing)
 <br/><br/>
+[Watch a video](https://drive.google.com/file/d/1f5QFSa-MKwZP9G5CwPOlgPzyiJhQuQuK/view?usp=sharing)
+<br/><br/>
+
 #### Screenshots
 
 <div style="text-align: center">
